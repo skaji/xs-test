@@ -11,6 +11,9 @@ WriteMakefile(
     XS     => { "lib/Test/XS.xs" => "lib/Test/XS.c" },
     C      => ["lib/Test/XS.c"],
     OBJECT => '$(O_FILES)',
+
+    INC => "-Iextra",
+    MYEXTLIB => 'extra/add.o extra/subst.o',
 );
 
 
@@ -27,3 +30,10 @@ sub const_cccmd {
     return $cccmd
 }
 
+sub postamble {
+    my $self = shift;
+    return <<'...';
+$(MYEXTLIB):
+	cd extra && $(MAKE) object
+...
+}

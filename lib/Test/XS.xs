@@ -3,6 +3,9 @@
 #include "perl.h"
 #include "XSUB.h"
 
+#include "add.h"
+#include "subst.h"
+
 MODULE = Test::XS   PACKAGE = Test::XS
 
 PROTOTYPES: DISABLE
@@ -11,6 +14,8 @@ void
 hello()
 PPCODE:
 {
-    XPUSHs(sv_2mortal(newSVpvs("hello")));
+    int x;
+    x = subst(add(10, 5), 5);
+    XPUSHs(sv_2mortal(newSViv(x)));
     XSRETURN(1);
 }
