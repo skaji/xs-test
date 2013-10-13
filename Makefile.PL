@@ -12,8 +12,8 @@ WriteMakefile(
     C      => ["lib/Test/XS.c"],
     OBJECT => '$(O_FILES)',
 
-    INC => "-Iextra",
-    MYEXTLIB => 'extra/add.o extra/subst.o',
+    INC      => "-Iextra",
+    MYEXTLIB => 'extra/libcalc.a',
 );
 
 
@@ -34,6 +34,6 @@ sub postamble {
     my $self = shift;
     return <<'...';
 $(MYEXTLIB):
-	cd extra && $(MAKE) object
+	cd extra && $(MAKE) libcalc.a
 ...
 }
